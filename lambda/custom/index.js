@@ -1,5 +1,80 @@
 const Alexa = require('ask-sdk-core');
 
+const readArticleHandler={
+    canHandle(handlerInput) {
+        const request = handlerInput.requestEnvelope.request;
+        return request.type === 'IntentRequest'
+          && request.intent.name === 'readArticle';
+      },
+      handle(handlerInput) {
+          const speechtext;
+        return handlerInput.responseBuilder
+          .speak(speechtext)
+          .reprompt(HELP_REPROMPT)
+          .getResponse();
+      },
+}
+
+const sendArticleHandler={
+    canHandle(handlerInput) {
+        const request = handlerInput.requestEnvelope.request;
+        return request.type === 'IntentRequest'
+          && request.intent.name === 'sendArticle';
+      },
+      handle(handlerInput) {
+          const speechtext;
+        return handlerInput.responseBuilder
+          .speak(speechtext)
+          .reprompt(HELP_REPROMPT)
+          .getResponse();
+      },
+}
+
+const ignoreSourceHandler = {
+    canHandle(handlerInput) {
+        const request = handlerInput.requestEnvelope.request;
+        return request.type === 'IntentRequest'
+          && request.intent.name === 'ignoreSource';
+      },
+      handle(handlerInput) {
+          const speechtext;
+        return handlerInput.responseBuilder
+          .speak(speechtext)
+          .reprompt(HELP_REPROMPT)
+          .getResponse();
+      },
+}
+
+const searchHandler = {
+    canHandle(handlerInput) {
+        const request = handlerInput.requestEnvelope.request;
+        return request.type === 'IntentRequest'
+          && request.intent.name === 'search';
+      },
+      handle(handlerInput) {
+          const speechtext;
+        return handlerInput.responseBuilder
+          .speak(speechtext)
+          .reprompt(HELP_REPROMPT)
+          .getResponse();
+      },
+}
+
+const skipArticleHandler = {
+    canHandle(handlerInput) {
+        const request = handlerInput.requestEnvelope.request;
+        return request.type === 'IntentRequest'
+          && request.intent.name === 'skipArticle';
+      },
+      handle(handlerInput) {
+          const speechtext;
+        return handlerInput.responseBuilder
+          .speak(speechtext)
+          .reprompt(HELP_REPROMPT)
+          .getResponse();
+      },
+}
+
 const HelpHandler = {
   canHandle(handlerInput) {
     const request = handlerInput.requestEnvelope.request;
