@@ -13,7 +13,7 @@
 //    Modify these strings and messages to change the behavior of your Lambda function
 const fetch = require('node-fetch');
 const baseURL = 'https://newsapi.org/v2/';
-const newsApiKey ='&apiKey=066a2c3c0ff94ad785468c20856137f2';
+const newsApiKey ='&apiKey=f4dc49ec358a4b2db5b2182131c6aba9';
 
 var articleURL = '';
 var newsArray = [];
