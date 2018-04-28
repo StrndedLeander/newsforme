@@ -3,9 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "dependencies": {
-    "alexa-sdk": "^1.0.25"
-  },
-  "devDependencies": {
+    "alexa-sdk": "^1.0.25",
     "node-fetch": "^2.1.2"
   }
 }
