@@ -152,9 +152,9 @@ const handlers = {
 
     //Your custom intent handling goes here
     newsIndex=0;
-    var url = baseURL + 'top-headlines?language=de&'+newsApiKey;
+    var url = baseURL + 'top-headlines?language=de'+newsApiKey;
     await jsonCall(url);
-    console.log(newsArray)
+    // console.log(newsArray)
     speechOutput = "Nachrichten von:"+ newsArray.articles[newsIndex].source.name+"."+newsArray.articles[newsIndex].description;
     this.emit(":ask", speechOutput, speechOutput);
   },
@@ -183,7 +183,7 @@ async function jsonCall(url){
     }
   }
   const response = await fetch(url)
-    .then(response => { console.log(response); return response.json(); })
+    .then(response => { return response.json(); })
     .then(data=>newsArray=data)
     .catch(console.log);
 
