@@ -1,3 +1,4 @@
+"use strict";
 /* This code has been generated from your interaction model by skillinator.io
 
 /* eslint-disable  func-names */
@@ -23,7 +24,6 @@ let reprompt;
 let welcomeOutput = "Willkommen bei Nachrichten für mich, deinem News Portal. Ich helfe dir interessante Nachrichten zu finden indem ich dir einen kurzen Überblick vorlese. Du sagst mir ob du mehr hören, den Artikel zugeschickt haben oder den nächsten hören willst. Wollen wir loslegen?";
 let welcomeReprompt = "sample re-prompt text";
 // 2. Skill Code =======================================================================================================
-"use strict";
 const Alexa = require('alexa-sdk');
 const APP_ID = undefined; // TODO replace with your app ID (OPTIONAL).
 speechOutput = '';
@@ -164,16 +164,6 @@ const handlers = {
     speechOutput = "The skill didn't quite understand what you wanted.  Do you want to try something else?";
     this.emit(':ask', speechOutput, speechOutput);
   }
-};
-
-exports.handler = (event, context) => {
-  const alexa = Alexa.handler(event, context);
-  alexa.appId = APP_ID;
-  // To enable string internationalization (i18n) features, set a resources object.
-  //alexa.resources = languageStrings;
-  alexa.registerHandlers(handlers);
-  //alexa.dynamoDBTableName = 'DYNAMODB_TABLE_NAME'; //uncomment this line to save attributes to DB
-  alexa.execute();
 };
 
 async function jsonCall(url){
@@ -377,3 +367,13 @@ function getDialogDirectives(dialogType, updatedIntent, slotName) {
   }
   return [directive];
 }
+
+exports.handler = (event, context) => {
+  const alexa = Alexa.handler(event, context);
+  alexa.appId = APP_ID;
+  // To enable string internationalization (i18n) features, set a resources object.
+  //alexa.resources = languageStrings;
+  alexa.registerHandlers(handlers);
+  //alexa.dynamoDBTableName = 'DYNAMODB_TABLE_NAME'; //uncomment this line to save attributes to DB
+  alexa.execute();
+};

@@ -56,7 +56,7 @@ provider:
 
 functions:
   newsforme:
-    handler: lambda/custom/index.handler
+    handler: index.handler
     events:
       - alexaSkill
 
