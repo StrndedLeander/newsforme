@@ -11,7 +11,7 @@
 
 // 1. Text strings =====================================================================================================
 //    Modify these strings and messages to change the behavior of your Lambda function
-
+const http = require('http');
 
 let speechOutput;
 let reprompt;
@@ -107,14 +107,23 @@ const handlers = {
     this.emit(":ask", speechOutput, speechOutput);
   },
   'readWholeArticle': function () {
-    speechOutput = '';
+    speechOutput = 'Hier ist der gesamte Artikel';
 
     //any intent slot variables are listed here for convenience
-
+    url = newsArray[newsIndex].url;
 
     //Your custom intent handling goes here
+    var wholeArticle = '';
+
+    http.get(url,(data)=>{
+      wholeArticle = JSON.parse(data);
+    }).on("error",(error) =>{
+      console.log(error);
+    });
+    speechOutput+=wholeArticle
+
     speechOutput = "This is a place holder response for the intent named readWholeArticle. This intent has no slots. Anything else?";
-    this.emit(":ask", speechOutput, speechOutput);
+    this.emit(":tell", speechOutput);
   },
   'quickReadArticle': function () {
     speechOutput = '';
