@@ -121,13 +121,16 @@ const handlers = {
     this.emit(":ask", speechOutput, speechOutput);
   },
   'quickReadArticle': function () {
-    // aktuellen Index aus Session Attributen holen
     let index = this.attributes['articleIndex'];
-    const article = this.attributes['articles'][index];
-    const { source, description } = article;
-    speechOutput = `Nachricht von: ${typewriter} ${source.name} - ${description}`;
-    // Session Index für nächsten Aufruf iterieren
-    this.attributes['articleIndex'] = ++index;
+
+    if (!this.attributes['articles'][index]) {
+      speechOutput = `${buzz} Meine Artikelliste ist leer. Sag mir wenn du weitere Artikel hören willst.`;
+    } else {
+      const article = this.attributes['articles'][index];
+      const { source, description } = article;
+      speechOutput = `Nachricht von: ${typewriter} ${source.name} - ${description}`;
+      this.attributes['articleIndex'] = ++index;
+    }
     this.emit(":ask", speechOutput, speechOutput);
   },
   'Unhandled': function () {
