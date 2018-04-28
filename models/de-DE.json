@@ -1,530 +1,1063 @@
 {
+
     "interactionModel": {
+
         "languageModel": {
+
             "invocationName": "nachrichten für mich",
+
             "intents": [{
+
                     "name": "AMAZON.CancelIntent",
+
                     "samples": []
+
+
 
                 },
 
+
+
                 {
+
                     "name": "AMAZON.HelpIntent",
+
                     "samples": []
+
+
 
                 },
 
+
+
                 {
+
+
 
                     "name": "AMAZON.StopIntent",
 
+
+
                     "samples": [
+
+
 
                         "warte",
 
+
+
                         "halt",
+
+
 
                         "stop"
 
+
+
                     ]
+
+
 
                 },
 
+
+
                 {
+
+
 
                     "name": "skipArticle",
 
+
+
                     "samples": [
+
                         "empty"
+
+
 
                     ]
 
+
+
                 },
 
+
+
                 {
+
+
 
                     "name": "searchKeyword",
 
+
+
                     "slots": [
 
+
+
                         {
+
+
 
                             "name": "query",
 
+
+
                             "type": "AMAZON.SearchQuery"
+
+
 
                         }
 
+
+
                     ],
 
+
+
                     "samples": [
+
+
 
                         "ich interessiere mich für {query}",
 
+
+
                         "ich würde gerne etwas zu {query}",
+
+
 
                         "haben wir etwa zu {query}",
 
+
+
                         "ich will was zu {query}",
+
+
 
                         "gibt es etwas zu {query}",
 
+
+
                         "was gibt es zu {query}",
+
+
 
                         "kannst du mir artikel über {query} vorlesen",
 
+
+
                         "kannst du mir artikel über {query}",
+
+
 
                         "hast du etwas über {query}",
 
+
+
                         "ich interessier mich für {query}",
+
+
 
                         "ich will artikel mit {query}",
 
+
+
                         "ich suche nach {query}"
+
+
 
                     ]
 
+
+
                 },
+
                 {
+
+
 
                     "name": "searchCategory",
 
+
+
                     "slots": [
 
+
+
                         {
+
+
 
                             "name": "category",
 
+
+
                             "type": "LIST_OF_CATEGORIES"
+
+
 
                         }
 
+
+
                     ],
 
+
+
                     "samples": [
+
+
 
                         "ich interessiere mich für {category}",
 
+
+
                         "ich würde gerne etwas zu {category}",
+
+
 
                         "haben wir etwa zu {category}",
 
+
+
                         "ich will was zu {category}",
+
+
 
                         "gibt es etwas zu {category}",
 
+
+
                         "was gibt es zu {category}",
+
+
 
                         "kannst du mir artikel über {category} vorlesen",
 
+
+
                         "kannst du mir artikel über {category}",
+
+
 
                         "hast du etwas über {category}",
 
+
+
                         "ich interessier mich für {category}",
+
+
 
                         "ich will artikel mit {category}",
 
+
+
                         "ich suche nach {category}"
+
+
 
                     ]
 
+
+
                 },
 
+
+
                 {
+
+
 
                     "name": "ignoreSource",
 
+
+
                     "slots": [
 
+
+
                         {
+
+
 
                             "name": "source",
 
+
+
                             "type": "sources"
+
+
 
                         }
 
+
+
                     ],
 
+
+
                     "samples": [
+
+
 
                         "auf gar keinen fall will ich {source} mehr hören",
 
+
+
                         "ich will keine {source} hören",
+
+
 
                         "ich will keine {source}",
 
+
+
                         "bitte keine {source} mehr",
+
+
 
                         "ich will keine {source} mehr",
 
+
+
                         "keine {source} mehr",
+
+
 
                         "keine {source}",
 
+
+
                         "ich will keine {source} meldungen mehr",
+
+
 
                         "{source} nicht mehr",
 
+
+
                         "ich will nichts mehr von {source}",
+
+
 
                         "ich will nichts hören von der quelle",
 
+
+
                         "ich will von dieser quelle nichts mehr hören",
+
+
 
                         "nichts von dieser quelle",
 
+
+
                         "ich will die zeitung nicht noch mal",
+
+
 
                         "nichts mehr von der zeitung",
 
+
+
                         "die quelle nicht mehr"
+
+
 
                     ]
 
+
+
                 },
 
+
+
                 {
+
+
 
                     "name": "sendArticle",
 
+
+
                     "samples": [
+
+
 
                         "artikel bitte mailen",
 
+
+
                         "diesen artikel bitte mailen",
+
+
 
                         "mail mir das",
 
+
+
                         "ich will den artkikel später lesen",
+
+
 
                         "später lesen",
 
+
+
                         "artikel speichern",
+
+
 
                         "artikel weiterleiten",
 
+
+
                         "per mail senden",
+
+
 
                         "via mail",
 
+
+
                         "bitte an meinen account senden",
+
+
 
                         "bitte mail an meinen account senden",
 
+
+
                         "bitte mail senden",
+
+
 
                         "bitte mir eine mail sende",
 
+
+
                         "bitte mir mail senden",
+
+
 
                         "schick mir das per mail",
 
+
+
                         "schick mir den artikel per mail",
+
+
 
                         "bitte mir das mit email senden",
 
+
+
                         "bitte mir das mit mail senden",
+
+
 
                         "bitte mir das per mail senden",
 
+
+
                         "bitte mir eine mail senden",
+
+
 
                         "bitte senden",
 
+
+
                         "mailen",
+
+
 
                         "weiterleiten",
 
+
+
                         "schicken",
+
+
 
                         "teilen",
 
+
+
                         "senden"
+
+
 
                     ]
 
+
+
                 },
 
+
+
                 {
+
+
 
                     "name": "readWholeArticle",
 
+
+
                     "samples": [
+
+
 
                         "einmal vorlesen bitte",
 
+
+
                         "das bitte vorlesen",
 
+
+
                         "vorlesen",
+
+
 
                         "das will ich lesen",
 
+
+
                         "lies mir das bitte vor",
+
+
 
                         "lies mir das vor",
 
+
+
                         "mach",
+
+
 
                         "vorlesen",
 
+
+
                         "lesen",
 
+
+
                         "lies",
+
                         "ganzen artikel",
+
                         "ganz vorlesen",
+
                         "alles",
+
                         "ganz",
+
                         "komplett"
+
+
 
                     ]
 
+
+
                 },
+
                 {
+
                     "name": "quickReadArticle",
+
                     "samples":[
+
                         "meine zusammenfassung",
+
                         "zusammenfassung",
+
                         
+
                         "nix da",
+
+
 
                         "uninteressant",
 
+
+
                         "das nicht",
+
+
 
                         "das interessiert mich nicht",
 
+
+
                         "nein weiter machen",
+
+
 
                         "nein weiter suchen",
 
+
+
                         "nein weiter",
+
+
 
                         "nein das nicht",
 
+
+
                         "nein ich will das nicht hören",
+
+
 
                         "weg damit",
 
+
+
                         "weiter machen",
+
+
 
                         "weiter suchen",
 
+
+
                         "Bitte weiter machen",
+
+
 
                         "Bitte weiter suchen",
 
+
+
                         "Bitte weiter",
+
+
 
                         "nix",
 
+
+
                         "interessiert nicht",
+
+
 
                         "nein",
 
+
+
                         "weg",
 
-                        "weiter"
+
+
+                        "weiter",
+
+
+
+                        "nächster"
+
+
 
                     ]
+
                 }
+
+
 
             ],
 
+
+
             "types": [
-                {
-                    "name":"LIST_OF_CATEGORIES",
-                    "values":[
-                        {
-                            "name":{
-                                "value": "business",
-                                "synonyms":["wirtschaft","finanzen","unternehmen","unternehmertum"]
-                            }
-                        },
-                        {
-                            "name":{
-                                "value": "entertainment",
-                                "synonyms":[
-                                    "unterhaltung",
-                                    "spaß",
-                                    "spaßiges"
-                                ]
-                            }
-                        },
-                        {
-                            "name":{
-                                "value": "health",
-                                "synonyms":[
-                                    "gesundheit",
-                                    "medizin",
-                                    "leben"
-                                ]
-                            }
-                        },
-                        {
-                            "name":{
-                                "value": "science",
-                                "synonyms":[
-                                    "wissenschaft",
-                                    "wissen"
-                                ]
-                            }
-                        },
-                        {
-                            "name":{
-                                "value": "sports",
-                                "synonyms":[
-                                    "sport"
-                                ]
-                            }
-                        },
-                        {
-                            "name":{
-                                "value": "technology",
-                                "synonyms":[
-                                    "technik",
-                                    "technologie",
-                                    "computer",
-                                    "roboter",
-                                    "pc"
-                                ]
-                            }
-                        }
-                    ]
-                },
 
                 {
+
+                    "name":"LIST_OF_CATEGORIES",
+
+                    "values":[
+
+                        {
+
+                            "name":{
+
+                                "value": "business",
+
+                                "synonyms":["wirtschaft","finanzen","unternehmen","unternehmertum"]
+
+                            }
+
+                        },
+
+                        {
+
+                            "name":{
+
+                                "value": "entertainment",
+
+                                "synonyms":[
+
+                                    "unterhaltung",
+
+                                    "spaß",
+
+                                    "spaßiges"
+
+                                ]
+
+                            }
+
+                        },
+
+                        {
+
+                            "name":{
+
+                                "value": "health",
+
+                                "synonyms":[
+
+                                    "gesundheit",
+
+                                    "medizin",
+
+                                    "leben"
+
+                                ]
+
+                            }
+
+                        },
+
+                        {
+
+                            "name":{
+
+                                "value": "science",
+
+                                "synonyms":[
+
+                                    "wissenschaft",
+
+                                    "wissen"
+
+                                ]
+
+                            }
+
+                        },
+
+                        {
+
+                            "name":{
+
+                                "value": "sports",
+
+                                "synonyms":[
+
+                                    "sport"
+
+                                ]
+
+                            }
+
+                        },
+
+                        {
+
+                            "name":{
+
+                                "value": "technology",
+
+                                "synonyms":[
+
+                                    "technik",
+
+                                    "technologie",
+
+                                    "computer",
+
+                                    "roboter",
+
+                                    "pc"
+
+                                ]
+
+                            }
+
+                        }
+
+                    ]
+
+                },
+
+
+
+                {
+
+
 
                     "values": [
 
+
+
                         {
 
+
+
                             "name": {
+
+
 
                                 "value": "Wirtschafts Woche"
 
+
+
                             }
+
+
 
                         },
 
+
+
                         {
 
+
+
                             "name": {
+
+
 
                                 "value": "Wired.de",
 
+
+
                                 "synonyms": [
+
+
 
                                     "Wired de",
 
+
+
                                     "Wired"
+
+
 
                                 ]
 
+
+
                             }
+
+
 
                         },
 
+
+
                         {
 
+
+
                             "name": {
+
+
 
                                 "value": "Spiegel Online",
 
+
+
                                 "synonyms": [
+
+
 
                                     "Spiegel"
 
+
+
                                 ]
+
+
 
                             }
 
+
+
                         },
+
+
 
                         {
 
+
+
                             "name": {
+
+
 
                                 "value": "Handelsblatt"
 
+
+
                             }
+
+
 
                         },
 
+
+
                         {
 
+
+
                             "name": {
+
+
 
                                 "value": "Gruenderszene"
 
+
+
                             }
+
+
 
                         },
 
+
+
                         {
 
+
+
                             "name": {
+
+
 
                                 "value": "Focus"
 
+
+
                             }
+
+
 
                         },
 
+
+
                         {
 
+
+
                             "name": {
+
+
 
                                 "value": "Die Zeit",
 
+
+
                                 "synonyms": [
+
+
 
                                     "Zeit"
 
+
+
                                 ]
+
+
 
                             }
 
+
+
                         },
+
+
 
                         {
 
+
+
                             "name": {
+
+
 
                                 "value": "Der Tagesspiegel",
 
+
+
                                 "synonyms": [
+
+
 
                                     "Tagesspiegel"
 
+
+
                                 ]
 
+
+
                             }
+
+
 
                         },
 
+
+
                         {
+
+
 
                             "name": {
 
+
+
                                 "value": "Bild"
+
+
 
                             }
 
+
+
                         }
+
+
 
                     ],
 
+
+
                     "name": "sources"
+
+
 
                 }
 
+
+
             ]
+
+
 
         }
 
+
+
     }
+
+
 
 }
