@@ -151,13 +151,13 @@ const handlers = {
 
 
     //Your custom intent handling goes here
-    newsIndex=0;
     var url = baseURL + 'top-headlines?language=de'+newsApiKey;
     await jsonCall(url);
     const article = newsArray.articles[newsIndex];
     const { source, description } = article;
     // console.log(newsArray)
     speechOutput = `Nachrichten von: ${source.name} - ${description}`;
+    newsIndex++;
     this.emit(":ask", speechOutput, speechOutput);
   },
   'Unhandled': function () {
