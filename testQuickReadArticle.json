@@ -6,6 +6,9 @@
         "application": {
             "applicationId": "amzn1.ask.skill.a84efe8c-d20f-4491-8e67-026268235ea4"
         },
+        "attributes": {
+            "articleIndex": 0
+        },
         "user": {
             "userId": "amzn1.ask.account.AFHFYWRIAJGBP7MGSTLEBPBFDMU27DPGDGMAQVK32XVF74HNHEKNE5YQP56VJNDAMYFN7YC6EZJ7DCRGTYF5IT43FVKIG4DCMM4BT7NNH3GFJWHN2N4R5SGLALNZUGRARW5UIVEJQUJDCVMCLNRGAZL7ZTKXOGPDKA5TF7IYBVNUKJ3MMIMOGQCKT32F5OS3YTY7WCWG6X664GI"
         }

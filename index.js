@@ -18,19 +18,17 @@ const newsApiKey ='&apiKey=f4dc49ec358a4b2db5b2182131c6aba9';
 
 var articleURL = '';
 var newsArray = [];
-var newsIndex = 0;
-let speechOutput;
+let speechOutput = '';
 let reprompt;
 let welcomeOutput = "Willkommen bei Nachrichten für mich, deinem News Portal. Ich helfe dir interessante Nachrichten zu finden indem ich dir einen kurzen Überblick vorlese. Du sagst mir ob du mehr hören, den Artikel zugeschickt haben oder den nächsten hören willst. Wollen wir loslegen?";
 let welcomeReprompt = "sample re-prompt text";
 // 2. Skill Code =======================================================================================================
 const Alexa = require('alexa-sdk');
 const APP_ID = undefined; // TODO replace with your app ID (OPTIONAL).
-speechOutput = '';
 const handlers = {
   'LaunchRequest': function () {
     // Index mitgeben
-    this.attributes['currentArticleIndex'] = 0;
+    this.attributes['articleIndex'] = 0;
 
     this.emit(':ask', welcomeOutput, welcomeReprompt);
   },
@@ -53,24 +51,21 @@ const handlers = {
     this.emit(':tell', speechOutput);
   },
   'skipArticle': function () {
-    speechOutput = '';
 
     // aktuellen Index aus Session Attributen holen
-    let index = this.attributes['currentArticleIndex'];
+    let index = this.attributes['articleIndex'];
     // Session Index für nächsten Aufruf iterieren
-    this.attributes['currentArticleIndex'] = index++;
+    this.attributes['articleIndex'] = index++;
 
 
     //any intent slot variables are listed here for convenience
 
 
     //Your custom intent handling goes here
-    newsIndex++;
     speechOutput = "Ok, hier der nächste Artikel: SKIP ARTICLE";
     this.emit(":ask", speechOutput, speechOutput);
   },
   'searchKeyword': function () {
-    speechOutput = '';
 
     //any intent slot variables are listed here for convenience
 
@@ -83,12 +78,15 @@ const handlers = {
     var url = baseURL + 'everything?language=de&q='+querySlot+newsApiKey;
     jsonCall(url);
 
-    speechOutput = "Nachrichten von:"+ newsArray.articles[newsIndex].source.name+"."+newsArray.articles[newsIndex].description;
+    // aktuellen Index aus Session Attributen holen
+    let index = this.attributes['articleIndex'];
+    const article = newsArray.articles[index];
+    const { source, description } = article;
+    speechOutput = `Nachrichten von: ${source.name} - ${description}`;
 
     this.emit(":ask", speechOutput, speechOutput);
   },
   'searchCategory': function () {
-    speechOutput = '';
 
     //any intent slot variables are listed here for convenience
 
@@ -98,15 +96,17 @@ const handlers = {
     console.log(categorySlot);
 
     //Your custom intent handling goes here
-    newsIndex=0;
     var url = baseURL + 'everything?language=de&category='+categorySlot+newsApiKey;
     jsonCall(url);
 
-    speechOutput = "Nachrichten von:"+ newsArray.articles[newsIndex].source.name+"."+newsArray.articles[newsIndex].description;
+    // aktuellen Index aus Session Attributen holen
+    const article = newsArray.articles[0];
+    const { source, description } = article;
+    speechOutput = `Nachrichten von: ${source.name} - ${description}`;
+
     this.emit(":ask", speechOutput, speechOutput);
   },
   'ignoreSource': function () {
-    speechOutput = '';
 
     //any intent slot variables are listed here for convenience
 
@@ -115,16 +115,10 @@ const handlers = {
     let sourceSlot = resolveCanonical(this.event.request.intent.slots.source);
     console.log(sourceSlot);
 
-    //Your custom intent handling goes here
-    newsIndex=0;
-    while (newsArray.articles[newsIndex].source.name == sourceSlot){
-      newsIndex++;
-    }
     speechOutput = "Ok, von " + sourceSlotRaw + " von Bild zeige ich dir nichts mehr. Sag mir wenn du weitere Artikel hören willst.";
     this.emit(":ask", speechOutput, speechOutput);
   },
   'sendArticle': function () {
-    speechOutput = '';
 
     //any intent slot variables are listed here for convenience
 
@@ -134,7 +128,6 @@ const handlers = {
     this.emit(":ask", speechOutput, speechOutput);
   },
   'readWholeArticle': function () {
-    speechOutput = 'Hier ist der gesamte Artikel';
 
     //any intent slot variables are listed here for convenience
 
@@ -145,19 +138,16 @@ const handlers = {
     this.emit(":ask", speechOutput, speechOutput);
   },
   'quickReadArticle': async function () {
-    speechOutput = '';
-
-    //any intent slot variables are listed here for convenience
-
-
-    //Your custom intent handling goes here
-    var url = baseURL + 'top-headlines?language=de'+newsApiKey;
+    const url = baseURL + 'top-headlines?language=de' + newsApiKey;
     await jsonCall(url);
-    const article = newsArray.articles[newsIndex];
+
+    // aktuellen Index aus Session Attributen holen
+    let index = this.attributes['articleIndex'];
+    const article = newsArray.articles[index];
     const { source, description } = article;
-    // console.log(newsArray)
     speechOutput = `Nachrichten von: ${source.name} - ${description}`;
-    newsIndex++;
+    // Session Index für nächsten Aufruf iterieren
+    this.attributes['articleIndex'] = index++;
     this.emit(":ask", speechOutput, speechOutput);
   },
   'Unhandled': function () {
@@ -367,6 +357,8 @@ function getDialogDirectives(dialogType, updatedIntent, slotName) {
   }
   return [directive];
 }
+
+
 
 exports.handler = (event, context) => {
   const alexa = Alexa.handler(event, context);
