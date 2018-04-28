@@ -82,7 +82,7 @@
 
                 {
 
-                    "name": "search",
+                    "name": "searchKeyword",
 
                     "slots": [
 
@@ -121,6 +121,51 @@
                         "ich will artikel mit {query}",
 
                         "ich suche nach {query}"
+
+                    ]
+
+                },
+                {
+
+                    "name": "searchCategory",
+
+                    "slots": [
+
+                        {
+
+                            "name": "category",
+
+                            "type": "LIST_OF_CATEGORIES"
+
+                        }
+
+                    ],
+
+                    "samples": [
+
+                        "ich interessiere mich für {category}",
+
+                        "ich würde gerne etwas zu {category}",
+
+                        "haben wir etwa zu {category}",
+
+                        "ich will was zu {category}",
+
+                        "gibt es etwas zu {category}",
+
+                        "was gibt es zu {category}",
+
+                        "kannst du mir artikel über {category} vorlesen",
+
+                        "kannst du mir artikel über {category}",
+
+                        "hast du etwas über {category}",
+
+                        "ich interessier mich für {category}",
+
+                        "ich will artikel mit {category}",
+
+                        "ich suche nach {category}"
 
                     ]
 
@@ -244,21 +289,15 @@
 
                 {
 
-                    "name": "readArticle",
+                    "name": "readWholeArticle",
 
                     "samples": [
 
-                        "go on baby",
-
-                        "ja ja",
-
-                        "ja",
-
                         "einmal vorlesen bitte",
 
-                        "genau",
+                        "das bitte vorlesen",
 
-                        "jawohl",
+                        "vorlesen",
 
                         "das will ich lesen",
 
@@ -272,15 +311,69 @@
 
                         "lesen",
 
-                        "lies"
+                        "lies",
+                        "ganzen artikel",
+                        "ganz vorlesen",
+                        "alles",
+                        "ganz",
+                        "komplett"
 
                     ]
 
+                },
+                {
+                    "name": "quickReadArticle",
+                    "samples":[
+                        "meine zusammenfassung",
+                        "zusammenfassung"
+
+                    ]
                 }
 
             ],
 
             "types": [
+                {
+                    "name":"LIST_OF_CATEGORIES",
+                    "values":[
+                        {
+                            "name":{
+                                "value": "business",
+                                "synonyms":["wirtschaft","finanzen","unternehmen","unternehmertum"]
+                            }
+                        },
+                        {
+                            "name":{
+                                "value": "entertainment",
+                                "synonyms":[
+                                    "unterhaltung",
+                                    "spaß",
+                                    "spaßiges"
+                                ]
+                            }
+                        },
+                        {
+                            "name":{
+                                "value": "health"
+                            }
+                        },
+                        {
+                            "name":{
+                                "value": "science"
+                            }
+                        },
+                        {
+                            "name":{
+                                "value": "sports"
+                            }
+                        },
+                        {
+                            "name":{
+                                "value": "technology"
+                            }
+                        }
+                    ]
+                },
 
                 {
 
