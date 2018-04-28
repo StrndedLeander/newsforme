@@ -35,46 +35,7 @@
                     "name": "skipArticle",
 
                     "samples": [
-
-                        "nix da",
-
-                        "uninteressant",
-
-                        "das nicht",
-
-                        "das interessiert mich nicht",
-
-                        "nein weiter machen",
-
-                        "nein weiter suchen",
-
-                        "nein weiter",
-
-                        "nein das nicht",
-
-                        "nein ich will das nicht hören",
-
-                        "weg damit",
-
-                        "weiter machen",
-
-                        "weiter suchen",
-
-                        "Bitte weiter machen",
-
-                        "Bitte weiter suchen",
-
-                        "Bitte weiter",
-
-                        "nix",
-
-                        "interessiert nicht",
-
-                        "nein",
-
-                        "weg",
-
-                        "weiter"
+                        "empty"
 
                     ]
 
@@ -325,7 +286,47 @@
                     "name": "quickReadArticle",
                     "samples":[
                         "meine zusammenfassung",
-                        "zusammenfassung"
+                        "zusammenfassung",
+                        
+                        "nix da",
+
+                        "uninteressant",
+
+                        "das nicht",
+
+                        "das interessiert mich nicht",
+
+                        "nein weiter machen",
+
+                        "nein weiter suchen",
+
+                        "nein weiter",
+
+                        "nein das nicht",
+
+                        "nein ich will das nicht hören",
+
+                        "weg damit",
+
+                        "weiter machen",
+
+                        "weiter suchen",
+
+                        "Bitte weiter machen",
+
+                        "Bitte weiter suchen",
+
+                        "Bitte weiter",
+
+                        "nix",
+
+                        "interessiert nicht",
+
+                        "nein",
+
+                        "weg",
+
+                        "weiter"
 
                     ]
                 }
