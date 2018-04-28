@@ -82,7 +82,7 @@ const handlers = {
     //Your custom intent handling goes here
     var url = baseURL + 'everything?language=de&q='+querySlot+newsApiKey;
     jsonCall(url);
-    
+
     speechOutput = "Nachrichten von:"+ newsArray.articles[newsIndex].source.name+"."+newsArray.articles[newsIndex].description;
 
     this.emit(":ask", speechOutput, speechOutput);
@@ -91,7 +91,7 @@ const handlers = {
     speechOutput = '';
 
     //any intent slot variables are listed here for convenience
-    
+
     let categorySlotRaw = this.event.request.intent.slots.category.value;
     console.log(categorySlotRaw);
     let categorySlot = resolveCanonical(this.event.request.intent.slots.category);
@@ -182,8 +182,8 @@ async function jsonCall(url){
       'Accept':'application/json'
     }
   }
-  const response = await fetch(url,options)
-    .then(response=>response.json())
+  const response = await fetch(url)
+    .then(response => { console.log(response); return response.json(); })
     .then(data=>newsArray=data)
     .catch(console.log);
 
@@ -219,7 +219,7 @@ function delegateSlotCollection() {
     // in the updatedIntent property
     //this.emit(":delegate", updatedIntent); //uncomment this is using ASK SDK 1.0.9 or newer
 
-    //this code is necessary if using ASK SDK versions prior to 1.0.9 
+    //this code is necessary if using ASK SDK versions prior to 1.0.9
     if (this.isOverridden()) {
       return;
     }
