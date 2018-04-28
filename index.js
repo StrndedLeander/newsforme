@@ -15,6 +15,8 @@
 const fetch = require('node-fetch');
 const baseURL = 'https://newsapi.org/v2/';
 
+const typewriter = "<audio src='https://s3.amazonaws.com/ask-soundlibrary/office/amzn_sfx_typing_typewriter_01.mp3'/>";
+
 var articleURL = '';
 var newsArray = [];
 let speechOutput = '';
@@ -65,62 +67,43 @@ const handlers = {
     this.emit(":ask", speechOutput, speechOutput);
   },
   'searchKeyword': async function () {
-    const querySlot = resolveCanonical(this.event.request.intent.slots.query);
-    console.log(querySlot);
-    const url = baseURL + 'everything?language=de&q='+querySlot;
+    const query = resolveCanonical(this.event.request.intent.slots.query);
+    const url = baseURL + 'everything?language=de&q='+query;
     await jsonCall(url);
 
-    // aktuellen Index aus Session Attributen holen
+    this.attributes['articleIndex'] = 0;
     const article = newsArray.articles[0];
     const { source, description } = article;
-    speechOutput = `Die Suche nach ${querySlot} hat folgendes ergeben: `;
-    speechOutput += `Nachrichten von: ${source.name} - ${description}`;
+    speechOutput = `Die Suche nach ${query} hat folgendes ergeben: `;
+    speechOutput += `Von: ${source.name} - ${description}`;
 
     this.emit(":ask", speechOutput, speechOutput);
   },
   'searchCategory': async function () {
-    const categorySlot = resolveCanonical(this.event.request.intent.slots.category);
-    console.log(categorySlot);
-    const url = baseURL + 'everything?language=de&category=' + categorySlot;
+    const query = resolveCanonical(this.event.request.intent.slots.category);
+    const url = baseURL + 'top-headlines?language=de&category=' + query;
     await jsonCall(url);
 
-    // aktuellen Index aus Session Attributen holen
+    this.attributes['articleIndex'] = 0;
     const article = newsArray.articles[0];
     const { source, description } = article;
-    speechOutput = `Die Suche nach ${categorySlot} hat folgendes ergeben: `;
-    speechOutput += `Nachrichten von: ${source.name} - ${description}`;
+    speechOutput = `Nachrichten aus der Kategorie ${query}: `;
+    speechOutput += `Von ${source.name} - ${description}`;
 
     this.emit(":ask", speechOutput, speechOutput);
   },
   'ignoreSource': function () {
+    const sourceSlot = resolveCanonical(this.event.request.intent.slots.source);
 
-    //any intent slot variables are listed here for convenience
-
-    let sourceSlotRaw = this.event.request.intent.slots.source.value;
-    console.log(sourceSlotRaw);
-    let sourceSlot = resolveCanonical(this.event.request.intent.slots.source);
-    console.log(sourceSlot);
-
-    speechOutput = "Ok, von " + sourceSlotRaw + " von Bild zeige ich dir nichts mehr. Sag mir wenn du weitere Artikel hören willst.";
+    speechOutput = "Ok, von " + sourceSlotRaw + " zeige ich dir nichts mehr. Sag mir, wenn du weitere Artikel hören willst.";
     this.emit(":ask", speechOutput, speechOutput);
   },
   'sendArticle': function () {
-
-    //any intent slot variables are listed here for convenience
-
-
-    //Your custom intent handling goes here
-    speechOutput = "Ok, ich habe dir den Artiel auf dein Smartphone geschickt. Sag mir wenn du weitere Artikel hören willst.";
+    speechOutput = "Ok, ich habe dir den Artikel auf dein Smartphone geschickt. Sag mir wenn du weitere Artikel hören willst.";
     this.emit(":ask", speechOutput, speechOutput);
   },
   'readWholeArticle': function () {
-
-    //any intent slot variables are listed here for convenience
-
-    //Your custom intent handling goes here
-
     speechOutput = "Ok, ich lese dir den ganzen Artikel vor. Ob sich die SPD mit Andrea Nahles erneuert? Linksparteichef Riexinger bezweifelt das. Eine Option für ein Linksbündnis sieht er mit ihr nicht. Für die SPD läuft es nicht wirklich rund in diesen Tagen. Die neue SPD-Chefin Andrea Nahles soll ihre Partei aus der Misere führen. Nur wie? Nahles wurde mit einem denkbar mauen Ergebnis an die Parteispitze gewählt: Sie ist nun die 66-Prozent-Vorsitzende. Ausgerechnet zu einer Zeit, in der sie geforderter ist als jeder Parteichef vor ihr. Denn es geht um alles für die Partei. Jüngste Umfragen verheißen nichts Gutes. Die Wahl von Nahles zur neuen SPD-Vorsitzenden hat der Partei demnach in der Wählergunst bislang keinen klaren Vorteil verschafft. Wäre am nächsten Sonntag Bundestagswahl, bekäme die SPD laut dem ZDF-Politbarometer rund 20 Prozent der Stimmen - nur ein Prozentpunkt mehr als vor zwei Wochen. Damit rückt auch ein mögliches Linksbündnis als Alternative zur Großen Koalition in weite Ferne. Für die Führung der Linkspartei ist Rot-Rot-Grün im Bund ohnehin derzeit keine Option. Vor allem, wie Parteichef Bernd Riexinger sagte, wegen des politischen Kurses den Nahles und der SPD-Vizekanzler und Finanzminister Olaf Scholz eingeschlagen haben. Zum Wirtschafts Club Die SPD muss sich entscheiden, ob sie eine wirkliche Erneuerung will, oder ob sie weiterhin Vize-Kanzlerwahlverein mit Unionsanbindung trotz der katastrophalen Wahlergebnisse bleiben will“, sagte Riexinger dem Handelsblatt. Aber eine wirkliche Erneuerung der Sozialdemokraten, die diese Bezeichnung auch verdiente, hieße vor allem, wieder Kurs auf soziale Gerechtigkeit zu nehmen. „Doch das ist aufgrund von noch über drei Jahren Mini-Groko, dem Koalitionsvertrag und den bisherigen Aussagen von Scholz und Nahles kaum zu erwarten, betonte der Linken-Chef. Stefan Liebich vom Reformerflügel der Linkspartei ist weniger pessimistisch. Ein Mitte-Links-Bündnis ist die beste Chance auf einen Richtungswechsel in unserem Land. Viele, auch in der Sozialdemokratie, wollen einen solchen Wechsel, sagte der Bundestagsabgeordnete dem Handelsblatt. Ich hoffe sehr, dass Andrea Nahles dies ernsthaft mit den Spitzen der Linken und der Grünen sondiert und eine Vorbereitung auch auf Fachebene befördert.Nahles hat ihrer Partei einen großen Erneuerungsprozess versprochen, parallel zur Regierungsarbeit. Als Vorsitzende der Bundestagsfraktion ist sie bewusst nicht ins Kabinett eingetreten, um an der Spitze von Partei und Fraktion das SPD-Profil zu schärfen. Laut Politbarometer rechnet aber sowohl innerhalb als auch außerhalb der Partei nicht einmal jeder zweite damit, dass Nahles die SPD auf Erfolgskurs bringen wird. Das sind die größten Baustellen der SPD: Diaspora! In Ostdeutschland liegt die SPD in vielen Regionen hinter der AfD, in Baden-Württemberg bei zwölf Prozent, in Bayern ist es nicht viel mehr. Ganze Landstriche drohen zur SPD-freien Zone zu werden, es wird immer schwerer, Mandatsträger zu finden. So müssen zum Beispiel in Thüringen externe Dienstleister eingekauft werden, um Wahlplakate aufzuhängen, da Mitglieder fehlen oder zu alt sind, um noch auf Leitern zu steigen. Der Parteilinke Matthias Miersch hält SPD-Bürgerbusse für eine Option, um auf dem Land stärker präsent zu sein - die SPD müsse wieder Kümmererpartei werden. Quelle: dpa Ein Grund könnte sein, dass sie sich nicht gegen die eigenen Minister positionieren kann. Deshalb bleibt Nahles auch nichts anderes übrig, als auf dem Prinzip der schwarzen Null zu beharren - trotz der Kritik in der eigenen Partei. In guten Zeiten keine neuen Schulden zu machen ist ein Gebot der Vernunft, sagte Nahles dem Magazin Spiegel. Es sei unnötig, an dieser Stelle einen Konflikt zu beginnen. Wir legen einen soliden Haushalt vor und investieren massiv – so geht gute Finanzpolitik.Nahles stärkte damit ihrem Parteikollegen und Finanzminister Scholz den Rücken, der sich bei der schwarzen Null in der Tradition seines Vorgängers Wolfgang Schäuble (CDU) sieht. Auf dem SPD-Parteitag in Wiesbaden hatten sich die Jusos gegen das Prinzip ausgesprochen, im Bund ohne neue Schulden auszukommen. Scholz will seine Haushaltspläne in der kommenden Woche dem Kabinett vorlegen.Linksparteichef Riexinger sieht in der Linksbündnis-Frage vor allem die SPD am Zug. Die Bedingungen dafür liegen für ihn auf der Hand. Ein Weiter so mit Alters- und Kinderarmut, Hartz IV-Elend, Steuergeschenken für Reiche und Unternehmen und prekärer Beschäftigung wird es mit der Linken sicher nicht geben, sagte er. Ähnlich sieht es Liebich. Man sei derzeit zwar weit von einer Bundestagsmehrheit entfernt. In allen drei Parteien gibt es aber Befürworter so einer Regierung und wenn wir gemeinsam mutig für eine andere Politik eintreten, die Armut bekämpft, steigende Löhne und Renten für die Mehrheit der Menschen ermöglicht und die sich nicht scheut, die Superreichen stärker zur Kasse zu bitten, kommen wir auch wieder in die Offensive, sagte er.„Es wäre schon viel erreicht, wenn erstmals die Tür für ernsthafte Gespräche geöffnet werden würde.Hoffnung macht Riexinger in dieser Hinsicht, dass Nahles bei der Wahl zur SPD-Vorsitzenden von nur zwei Drittel der Delegierten gewählt wurde. „Ich sehe das als Hinweis, dass Teile der Basis nicht mehr bereit sind, sich von der Parteiführung vorschreiben zu lassen, wer Vorsitzende wird, sagte er. Es gibt die SPD-Mitglieder, die Erneuerung ernst nehmen und wieder sozialdemokratische statt neoliberaler Politik machen wollen.";
-
     this.emit(":ask", speechOutput, speechOutput);
   },
   'quickReadArticle': async function () {
@@ -131,9 +114,9 @@ const handlers = {
     let index = this.attributes['articleIndex'];
     const article = newsArray.articles[index];
     const { source, description } = article;
-    speechOutput = `Nachrichten von: ${source.name} - ${description}`;
+    speechOutput = `Nachricht von: ${typewriter} ${source.name} - ${description}`;
     // Session Index für nächsten Aufruf iterieren
-    this.attributes['articleIndex'] = index++;
+    this.attributes['articleIndex'] = ++index;
     this.emit(":ask", speechOutput, speechOutput);
   },
   'Unhandled': function () {
