@@ -21,7 +21,7 @@ var newsArray = [];
 let speechOutput = '';
 let reprompt;
 let welcomeOutput = "Willkommen bei Nachrichten für mich, deinem News Portal. Ich helfe dir interessante Nachrichten zu finden indem ich dir einen kurzen Überblick vorlese. Du sagst mir ob du mehr hören, den Artikel zugeschickt haben oder den nächsten hören willst. Wollen wir loslegen?";
-let welcomeReprompt = "sample re-prompt text";
+let welcomeReprompt = "Für was interessierst du dich?";
 // 2. Skill Code =======================================================================================================
 const Alexa = require('alexa-sdk');
 const APP_ID = undefined; // TODO replace with your app ID (OPTIONAL).
@@ -33,20 +33,20 @@ const handlers = {
     this.emit(':ask', welcomeOutput, welcomeReprompt);
   },
   'AMAZON.HelpIntent': function () {
-    speechOutput = 'Placeholder response for AMAZON.HelpIntent.';
+    speechOutput = 'Ich weiß selbst nicht, was ich hier tue. Wollen wir schwimmen gehen?';
     reprompt = '';
     this.emit(':ask', speechOutput, reprompt);
   },
   'AMAZON.CancelIntent': function () {
-    speechOutput = 'Placeholder response for AMAZON.CancelIntent';
+    speechOutput = 'Ich hör ja schon auf';
     this.emit(':tell', speechOutput);
   },
   'AMAZON.StopIntent': function () {
-    speechOutput = 'Placeholder response for AMAZON.StopIntent.';
+    speechOutput = 'Tschüss, bis bald!';
     this.emit(':tell', speechOutput);
   },
   'SessionEndedRequest': function () {
-    speechOutput = '';
+    speechOutput = 'Es war mir ein Vergnügen!';
     //this.emit(':saveState', true);//uncomment to save attributes to db on session end
     this.emit(':tell', speechOutput);
   },
@@ -62,7 +62,7 @@ const handlers = {
 
 
     //Your custom intent handling goes here
-    speechOutput = "Ok, hier der nächste Artikel: SKIP ARTICLE";
+    speechOutput = "Ok, hier der nächste Artikel:";
     this.emit(":ask", speechOutput, speechOutput);
   },
   'searchKeyword': function () {
@@ -151,7 +151,7 @@ const handlers = {
     this.emit(":ask", speechOutput, speechOutput);
   },
   'Unhandled': function () {
-    speechOutput = "The skill didn't quite understand what you wanted.  Do you want to try something else?";
+    speechOutput = "Wo bin ich? Kannst du es mir sagen?";
     this.emit(':ask', speechOutput, speechOutput);
   }
 };
