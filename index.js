@@ -14,7 +14,6 @@
 //    Modify these strings and messages to change the behavior of your Lambda function
 const fetch = require('node-fetch');
 const baseURL = 'https://newsapi.org/v2/';
-const newsApiKey ='&apiKey=f4dc49ec358a4b2db5b2182131c6aba9';
 
 var articleURL = '';
 var newsArray = [];
@@ -65,44 +64,31 @@ const handlers = {
     speechOutput = "Ok, hier der nächste Artikel:";
     this.emit(":ask", speechOutput, speechOutput);
   },
-  'searchKeyword': function () {
-
-    //any intent slot variables are listed here for convenience
-
-    let querySlotRaw = this.event.request.intent.slots.query.value;
-    console.log(querySlotRaw);
-    let querySlot = resolveCanonical(this.event.request.intent.slots.query);
+  'searchKeyword': async function () {
+    const querySlot = resolveCanonical(this.event.request.intent.slots.query);
     console.log(querySlot);
-
-    //Your custom intent handling goes here
-    var url = baseURL + 'everything?language=de&q='+querySlot+newsApiKey;
-    jsonCall(url);
-
-    // aktuellen Index aus Session Attributen holen
-    let index = this.attributes['articleIndex'];
-    const article = newsArray.articles[index];
-    const { source, description } = article;
-    speechOutput = `Nachrichten von: ${source.name} - ${description}`;
-
-    this.emit(":ask", speechOutput, speechOutput);
-  },
-  'searchCategory': function () {
-
-    //any intent slot variables are listed here for convenience
-
-    let categorySlotRaw = this.event.request.intent.slots.category.value;
-    console.log(categorySlotRaw);
-    let categorySlot = resolveCanonical(this.event.request.intent.slots.category);
-    console.log(categorySlot);
-
-    //Your custom intent handling goes here
-    var url = baseURL + 'everything?language=de&category='+categorySlot+newsApiKey;
-    jsonCall(url);
+    const url = baseURL + 'everything?language=de&q='+querySlot;
+    await jsonCall(url);
 
     // aktuellen Index aus Session Attributen holen
     const article = newsArray.articles[0];
     const { source, description } = article;
-    speechOutput = `Nachrichten von: ${source.name} - ${description}`;
+    speechOutput = `Die Suche nach ${querySlot} hat folgendes ergeben: `;
+    speechOutput += `Nachrichten von: ${source.name} - ${description}`;
+
+    this.emit(":ask", speechOutput, speechOutput);
+  },
+  'searchCategory': async function () {
+    const categorySlot = resolveCanonical(this.event.request.intent.slots.category);
+    console.log(categorySlot);
+    const url = baseURL + 'everything?language=de&category=' + categorySlot;
+    await jsonCall(url);
+
+    // aktuellen Index aus Session Attributen holen
+    const article = newsArray.articles[0];
+    const { source, description } = article;
+    speechOutput = `Die Suche nach ${categorySlot} hat folgendes ergeben: `;
+    speechOutput += `Nachrichten von: ${source.name} - ${description}`;
 
     this.emit(":ask", speechOutput, speechOutput);
   },
@@ -138,7 +124,7 @@ const handlers = {
     this.emit(":ask", speechOutput, speechOutput);
   },
   'quickReadArticle': async function () {
-    const url = baseURL + 'top-headlines?language=de' + newsApiKey;
+    const url = baseURL + 'top-headlines?language=de';
     await jsonCall(url);
 
     // aktuellen Index aus Session Attributen holen
@@ -157,19 +143,20 @@ const handlers = {
 };
 
 async function jsonCall(url){
-  const options={
+  const apiKey = 'f4dc49ec358a4b2db5b2182131c6aba9';
+  const options = {
     method: 'GET',
     headers:{
       'Content-Type':'application/json',
       'Accept':'application/json'
     }
-  }
-  const response = await fetch(url)
+  };
+  const response = await fetch(url + '&apiKey=' + apiKey)
     .then(response => { return response.json(); })
     .then(data=>newsArray=data)
     .catch(console.log);
 
-    return await response;
+  return await response;
 }
 
 //    END of Intent Handlers {} ========================================================================================
