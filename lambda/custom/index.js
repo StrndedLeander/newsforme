@@ -154,8 +154,10 @@ const handlers = {
     newsIndex=0;
     var url = baseURL + 'top-headlines?language=de'+newsApiKey;
     await jsonCall(url);
+    const article = newsArray.articles[newsIndex];
+    const { source, description } = article;
     // console.log(newsArray)
-    speechOutput = "Nachrichten von:"+ newsArray.articles[newsIndex].source.name+"."+newsArray.articles[newsIndex].description;
+    speechOutput = `Nachrichten von: ${source.name} - ${description}`;
     this.emit(":ask", speechOutput, speechOutput);
   },
   'Unhandled': function () {
