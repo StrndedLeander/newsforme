@@ -4,5 +4,8 @@
   "private": true,
   "dependencies": {
     "alexa-sdk": "^1.0.25"
+  },
+  "devDependencies": {
+    "node-fetch": "^2.1.2"
   }
 }
