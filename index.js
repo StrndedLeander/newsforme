@@ -83,7 +83,7 @@ const handlers = {
       const article = news.articles[0];
       const { source, description } = article;
       speechOutput = `Die Suche nach ${query} hat folgendes ergeben: `;
-      speechOutput += `Von ${typewriter}: ${source.name} - ${description}`;
+      speechOutput += `Von: ${typewriter} ${source.name} - ${description}`;
     }
 
     this.emit(":ask", speechOutput, speechOutput);
@@ -101,7 +101,7 @@ const handlers = {
       const article = news.articles[0];
       const { source, description } = article;
       speechOutput = `Nachrichten aus der Kategorie ${query}: `;
-      speechOutput += `Von ${typewriter}: ${source.name} - ${description}`;
+      speechOutput += `Von: ${typewriter} ${source.name} - ${description}`;
     }
 
     this.emit(":ask", speechOutput, speechOutput);
