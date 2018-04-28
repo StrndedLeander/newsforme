@@ -16,13 +16,14 @@ const fetch = require('node-fetch');
 const baseURL = 'https://newsapi.org/v2/';
 
 const typewriter = "<audio src='https://s3.amazonaws.com/ask-soundlibrary/office/amzn_sfx_typing_typewriter_01.mp3'/>";
+const buzz = "<audio src='https://s 3.amazonaws.com/ask-soundlibrary/musical/amzn_sfx_buzzer_loud_alarm_01.mp3'/>";
 
 var articleURL = '';
 var newsArray = [];
 let speechOutput = '';
 let reprompt;
-let welcomeOutput = "Willkommen bei Nachrichten für mich, deinem News Portal. Ich helfe dir interessante Nachrichten zu finden indem ich dir einen kurzen Überblick vorlese. Du sagst mir ob du mehr hören, den Artikel zugeschickt haben oder den nächsten hören willst. Wollen wir loslegen?";
-let welcomeReprompt = "Für was interessierst du dich?";
+
+
 // 2. Skill Code =======================================================================================================
 const Alexa = require('alexa-sdk');
 const APP_ID = undefined; // TODO replace with your app ID (OPTIONAL).
@@ -30,12 +31,14 @@ const handlers = {
   'LaunchRequest': function () {
     // Index mitgeben
     this.attributes['articleIndex'] = 0;
+    const sound = "<audio src='https://s3.amazonaws.com/ask-soundlibrary/office/amzn_sfx_typing_medium_01.mp3'/>";
+    const welcomeOutput = `Willkommen bei deiner Rundschau, deinem persönlichen News Portal. ${sound} Ich helfe dir, interessante Nachrichten zu finden, die deinen Interessen entsprechen. Was willst du hören?`;
+    const welcomeReprompt = "Für was interessierst du dich?";
 
     this.emit(':ask', welcomeOutput, welcomeReprompt);
   },
   'AMAZON.HelpIntent': function () {
-    speechOutput = 'Ich weiß selbst nicht, was ich hier tue. Wollen wir schwimmen gehen?';
-    reprompt = '';
+    speechOutput = 'Sag mir was dich interessiert. Du kannst dir einen Artikel zusenden lassen, den ganzen Artikel lesen, oder nach Themen suchen, die dich interessieren.';
     this.emit(':ask', speechOutput, reprompt);
   },
   'AMAZON.CancelIntent': function () {
@@ -71,24 +74,32 @@ const handlers = {
     const url = baseURL + 'everything?language=de&q='+query;
     await jsonCall(url);
 
-    this.attributes['articleIndex'] = 0;
-    const article = newsArray.articles[0];
-    const { source, description } = article;
-    speechOutput = `Die Suche nach ${query} hat folgendes ergeben: `;
-    speechOutput += `Von: ${source.name} - ${description}`;
+    if (!newsArray.articles.length) {
+      speechOutput = `${buzz} Hm, das ist seltsam. Ich konnte zu ${query} nichts finden. Soll ich es noch einmal probieren?`;
+    } else {
+      this.attributes['articleIndex'] = 0;
+      const article = newsArray.articles[0];
+      const { source, description } = article;
+      speechOutput = `Die Suche nach ${query} hat folgendes ergeben: `;
+      speechOutput += `Von ${typewriter}: ${source.name} - ${description}`;
+    }
 
     this.emit(":ask", speechOutput, speechOutput);
   },
   'searchCategory': async function () {
     const query = resolveCanonical(this.event.request.intent.slots.category);
-    const url = baseURL + 'top-headlines?language=de&category=' + query;
+    const url = baseURL + 'top-headlines?country=de&category=' + query;
     await jsonCall(url);
 
-    this.attributes['articleIndex'] = 0;
-    const article = newsArray.articles[0];
-    const { source, description } = article;
-    speechOutput = `Nachrichten aus der Kategorie ${query}: `;
-    speechOutput += `Von ${source.name} - ${description}`;
+    if (!newsArray.articles.length) {
+      speechOutput = `${buzz} Ich konnte zu ${query} nichts finden. Gibt es andere Themen, die dich interessieren?`;
+    } else {
+      this.attributes['articleIndex'] = 0;
+      const article = newsArray.articles[0];
+      const { source, description } = article;
+      speechOutput = `Nachrichten aus der Kategorie ${query}: `;
+      speechOutput += `Von ${typewriter}: ${source.name} - ${description}`;
+    }
 
     this.emit(":ask", speechOutput, speechOutput);
   },
