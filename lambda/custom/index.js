@@ -120,7 +120,7 @@ const handlers = {
     while (newsArray.articles[newsIndex].source.name == sourceSlot){
       newsIndex++;
     }
-    speechOutput = "Ok, von " + sourceSlotRaw + " werden dir keine Aritkel mehr vorgestellt. Sag mir wenn du weitere Artikel hören willst.";
+    speechOutput = "Ok, von " + sourceSlotRaw + " von Bild zeige ich dir nichts mehr. Sag mir wenn du weitere Artikel hören willst.";
     this.emit(":ask", speechOutput, speechOutput);
   },
   'sendArticle': function () {
