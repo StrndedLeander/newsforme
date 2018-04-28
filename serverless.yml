@@ -56,8 +56,8 @@ provider:
 
 functions:
   newsforme:
-    handler: index.handler
-    events: 
+    handler: lambda/custom/index.handler
+    events:
       - alexaSkill
 
 #    The following are a few example events you can configure
