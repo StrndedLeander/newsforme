@@ -7,7 +7,45 @@
             "applicationId": "amzn1.ask.skill.a84efe8c-d20f-4491-8e67-026268235ea4"
         },
         "attributes": {
-            "articleIndex": 0
+            "articleIndex": 0,
+            "articles": [
+                {
+                    "source": {
+                        "id": "der-tagesspiegel",
+                        "name": "Der Tagesspiegel"
+                    },
+                    "author": null,
+                    "title": "Gleiche Regeln für alle Medien",
+                    "description": "Dass die Netzmonopolisten standhaft leugnen, Medien zu sein - und sich sich somit weigern, die Pressekodizes einzuhalten, ärgert Hans Dieter Heimendahl vom Deutschlandfunk Kultur nicht nur in dieser Woche.",
+                    "url": "https://www.tagesspiegel.de/medien/zu-meinem-aerger-gleiche-regeln-fuer-alle-medien/21225744.html",
+                    "urlToImage": "https://www.tagesspiegel.de/images/heprodimagesfotos88120180429heimentv_464_1_20180427152345469-jpg/21225754/2-format530.jpg",
+                    "publishedAt": "2018-04-28T22:00:00+00:00"
+                },
+                {
+                    "source": {
+                        "id": "die-zeit",
+                        "name": "Die Zeit"
+                    },
+                    "author": "https://www.zeit.de/autoren/H/Clara_Hellner/index",
+                    "title": "Medizinstudium: Darf Phil noch Arzt werden?",
+                    "description": "30.000 Menschen bewerben sich jedes Jahr per Wartezeitquote, um Medizin studieren zu können. Sie warten jahrelang auf ihre Chance. Doch jetzt könnte alles umsonst sein.",
+                    "url": "https://www.zeit.de/campus/2018-04/medizinstudium-wartesemester-bundesverfassungsgericht-urteil-zugangsberechtigung",
+                    "urlToImage": "https://img.zeit.de/campus/2018-04/medizinstudium-wartesemester-bundesverfassungsgericht-urteil-zugangsberechtigung-bild/wide__1300x731",
+                    "publishedAt": "2018-04-28T15:46:09+00:00"
+                },
+                {
+                    "source": {
+                        "id": "spiegel-online",
+                        "name": "Spiegel Online"
+                    },
+                    "author": "Spiegel Online",
+                    "title": "CDU-Generalsekretärin: Alles neu macht AKK",
+                    "description": "Beim Auftakt ihrer Zuhör-Tour wird deutlich: Generalsekretärin Annegret Kramp-Karrenbauer will die CDU erneuern - und macht auch vor Gepflogenheiten der Kanzlerin nicht Halt.",
+                    "url": "http://www.spiegel.de/politik/deutschland/cdu-annegret-kramp-karrenbauer-auf-zuhoer-tour-in-deutschland-a-1205347.html",
+                    "urlToImage": "http://cdn1.spiegel.de/images/image-1281910-860_poster_16x9-knxb-1281910.jpg",
+                    "publishedAt": "2018-04-28T15:44:45Z"
+                }
+            ]
         },
         "user": {
             "userId": "amzn1.ask.account.AFHFYWRIAJGBP7MGSTLEBPBFDMU27DPGDGMAQVK32XVF74HNHEKNE5YQP56VJNDAMYFN7YC6EZJ7DCRGTYF5IT43FVKIG4DCMM4BT7NNH3GFJWHN2N4R5SGLALNZUGRARW5UIVEJQUJDCVMCLNRGAZL7ZTKXOGPDKA5TF7IYBVNUKJ3MMIMOGQCKT32F5OS3YTY7WCWG6X664GI"
