@@ -354,22 +354,41 @@
                         },
                         {
                             "name":{
-                                "value": "health"
+                                "value": "health",
+                                "synonyms":[
+                                    "gesundheit",
+                                    "medizin",
+                                    "leben"
+                                ]
                             }
                         },
                         {
                             "name":{
-                                "value": "science"
+                                "value": "science",
+                                "synonyms":[
+                                    "wissenschaft",
+                                    "wissen"
+                                ]
                             }
                         },
                         {
                             "name":{
-                                "value": "sports"
+                                "value": "sports",
+                                "synonyms":[
+                                    "sport"
+                                ]
                             }
                         },
                         {
                             "name":{
-                                "value": "technology"
+                                "value": "technology",
+                                "synonyms":[
+                                    "technik",
+                                    "technologie",
+                                    "computer",
+                                    "roboter",
+                                    "pc"
+                                ]
                             }
                         }
                     ]
