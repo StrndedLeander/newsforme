@@ -11,11 +11,11 @@
 
 // 1. Text strings =====================================================================================================
 //    Modify these strings and messages to change the behavior of your Lambda function
-const http = require('http');
+const fetch = require('node-fetch');
 const baseURL = 'https://newsapi.org/v2/';
 const newsApiKey ='&apiKey=066a2c3c0ff94ad785468c20856137f2';
 
-var articleURL = newsArray.articles[newsIndex].url;
+var articleURL = '';
 var newsArray = [];
 var newsIndex = 0;
 let speechOutput;
@@ -82,7 +82,7 @@ const handlers = {
     //Your custom intent handling goes here
     var url = baseURL + 'everything?language=de&q='+querySlot+newsApiKey;
     jsonCall(url);
-
+    
     speechOutput = "Nachrichten von:"+ newsArray.articles[newsIndex].source.name+"."+newsArray.articles[newsIndex].description;
 
     this.emit(":ask", speechOutput, speechOutput);
@@ -144,7 +144,7 @@ const handlers = {
 
     this.emit(":ask", speechOutput, speechOutput);
   },
-  'quickReadArticle': function () {
+  'quickReadArticle': async function () {
     speechOutput = '';
 
     //any intent slot variables are listed here for convenience
@@ -153,8 +153,8 @@ const handlers = {
     //Your custom intent handling goes here
     newsIndex=0;
     var url = baseURL + 'top-headlines?language=de&'+newsApiKey;
-    jsonCall(url);
-
+    await jsonCall(url);
+    console.log(newsArray)
     speechOutput = "Nachrichten von:"+ newsArray.articles[newsIndex].source.name+"."+newsArray.articles[newsIndex].description;
     this.emit(":ask", speechOutput, speechOutput);
   },
@@ -174,10 +174,20 @@ exports.handler = (event, context) => {
   alexa.execute();
 };
 
-function jsonCall(url){
-  http.get(url,data=>{
-    newsArray = JSON.parse(data);
-  });
+async function jsonCall(url){
+  const options={
+    method: 'GET',
+    headers:{
+      'Content-Type':'application/json',
+      'Accept':'application/json'
+    }
+  }
+  const response = await fetch(url,options)
+    .then(response=>response.json())
+    .then(data=>newsArray=data)
+    .catch(console.log);
+
+    return await response;
 }
 
 //    END of Intent Handlers {} ========================================================================================
